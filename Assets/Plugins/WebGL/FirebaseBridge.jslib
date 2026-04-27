@@ -58,6 +58,7 @@ var FirebaseBridgeLib = {
             fields: {
                 userId: { stringValue: auth.uid },
                 score: { integerValue: String(parsed.score) },
+                clicks: { integerValue: String(parsed.clicks) },
                 pipes: { integerValue: String(parsed.pipes) },
                 duration: { integerValue: String(parsed.duration)},
                 startTimestamp: { stringValue: parsed.startTimestamp},
