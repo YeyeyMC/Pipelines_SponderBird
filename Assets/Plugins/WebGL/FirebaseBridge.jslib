@@ -5,7 +5,7 @@ var FirebaseBridgeLib = {
         }
 
         function handleAuth(data) {
-            window.__dbAuth.uid = data.uid;
+            window.__fbAuth.uid = data.uid;
             window.__fbAuth.idToken = data.idToken;
             window.__fbAuth.displayName = data.displayName || "Player";
             window.__fbAuth.projectId = data.projectId || "";
@@ -32,7 +32,7 @@ var FirebaseBridgeLib = {
         }
 
         if (window.__fbAuth && window.__fbAuth.uid && window.__fbAuth.idToken) {
-            var payload = JSON.stringigy(window.__fbAuth);
+            var payload = JSON.stringify(window.__fbAuth);
             SendMessage("FirebaseManager", "OnAuthReceived", payload);
         }
     },
@@ -47,7 +47,7 @@ var FirebaseBridgeLib = {
             return;
         }
 
-        var baseUrl = "https://firestore.googleapis.com/v1/projects/" + auth.projectId + "/databases(default)/documents";
+        var baseUrl = "https://firestore.googleapis.com/v1/projects/" + auth.projectId + "/databases/(default)/documents";
 
         var headers = {
             "Content-Type": "application/json",
@@ -60,7 +60,7 @@ var FirebaseBridgeLib = {
                 score: { integerValue: String(parsed.score) },
                 pipes: { integerValue: String(parsed.pipes) },
                 duration: { integerValue: String(parsed.duration)},
-                timestamp: { timestampValue: new Date().toIsoString()}
+                timestamp: { timestampValue: new Date().toISOString()}
             }
         }
 
@@ -107,7 +107,7 @@ var FirebaseBridgeLib = {
         })
         .then(function (res) { return res.json(); })
         .then(function (data) { console.log("User Profile Updated"); })
-        .catch(function (err) { console.error("User PATCH failed", e); });
+        .catch(function (err) { console.error("User PATCH failed", err); });
     }
 };
 
