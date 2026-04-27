@@ -42,6 +42,7 @@ public class BirdController : MonoBehaviour
         if (flapInput)
         {
             Flap();
+            ScoreManager.Instance.UpdateClicksCount();
         }
 
         UpdateRotation();

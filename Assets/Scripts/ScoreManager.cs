@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private TMP_Text highScoreText;
     [SerializeField] private TMP_Text finalScoreText;
 
+    private string sessionStartTimeTimestamp = "";
+    private string sessionEndTimeTimestamp = "";
     private const string HIGH_SCORE_KEY = "FlappyHighScore";
 
     private int currentScore = 0;
@@ -17,6 +20,7 @@ public class ScoreManager : MonoBehaviour
 
     private float sessionStartTime = 0;
     private int pipesPassed = 0;
+    private int clicks = 0;
 
     private void Awake()
     {
@@ -33,9 +37,11 @@ public class ScoreManager : MonoBehaviour
     public void ResetScore()
     {
         currentScore = 0;
+        clicks = 0;
         
         pipesPassed = 0;
         sessionStartTime = Time.time;
+        sessionStartTimeTimestamp = DateTime.UtcNow.ToString("o");
         
         UpdateScoreDisplay();
     }
@@ -62,10 +68,12 @@ public class ScoreManager : MonoBehaviour
         if (finalScoreText != null)
             finalScoreText.text = $"Score: {currentScore}\nBest: {highScore}";
 
+        sessionEndTimeTimestamp = DateTime.UtcNow.ToString("o");
+        
         if (FirebaseManager.Instance != null)
         {
             int duration = Mathf.RoundToInt(Time.time - sessionStartTime);
-            FirebaseManager.Instance.SubmitScore(currentScore, pipesPassed, duration);
+            FirebaseManager.Instance.SubmitScore(currentScore, clicks, pipesPassed, duration, sessionStartTimeTimestamp, sessionEndTimeTimestamp);
         }
     }
 
@@ -76,5 +84,10 @@ public class ScoreManager : MonoBehaviour
 
         if (highScoreText != null)
             highScoreText.text = $"Best: {highScore}";
+    }
+
+    public void UpdateClicksCount()
+    {
+        clicks++;
     }
 }

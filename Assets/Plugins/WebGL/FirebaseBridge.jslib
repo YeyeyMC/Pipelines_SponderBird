@@ -60,7 +60,8 @@ var FirebaseBridgeLib = {
                 score: { integerValue: String(parsed.score) },
                 pipes: { integerValue: String(parsed.pipes) },
                 duration: { integerValue: String(parsed.duration)},
-                timestamp: { timestampValue: new Date().toISOString()}
+                startTimestamp: { stringValue: parsed.startTimestamp},
+                endTimestamp: { stringValue: parsed.endTimestamp}
             }
         }
 

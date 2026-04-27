@@ -48,7 +48,7 @@ private static void SubmitScoreToFirestore(string jsonBody)
         Debug.Log($"User Authenticated as {DisplayName}, UID: {UserId}");      
     }
 
-    public void SubmitScore(int score, int pipes, int duration)
+    public void SubmitScore(int score, int clicks, int pipes, int duration, string sessionStartTimeTimestamp, string sessionEndTimeTimestamp)
     {
         if (!IsAuthenticated)
         {
@@ -59,8 +59,11 @@ private static void SubmitScoreToFirestore(string jsonBody)
         var payload = new ScorePayload()
         {
             score = score,
+            clicks = clicks,
             pipes = pipes,
-            duration = duration
+            duration = duration,
+            startTimeTimestamp = sessionStartTimeTimestamp,
+            endTimeTimestamp = sessionEndTimeTimestamp
         };
         
         string json = JsonUtility.ToJson(payload);
@@ -80,7 +83,10 @@ private static void SubmitScoreToFirestore(string jsonBody)
     private class ScorePayload
     {
         public int score;
+        public int clicks;
         public int pipes;
         public int duration;
+        public string startTimeTimestamp;
+        public string endTimeTimestamp;
     }
 }
