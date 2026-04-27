@@ -29,6 +29,8 @@ private static void SubmitScoreToFirestore(string jsonBody)
         }
 
         Instance = this;
+        
+        InitFirebaseBridge();
     }
 
     public void OnAuthReceived(string json)
