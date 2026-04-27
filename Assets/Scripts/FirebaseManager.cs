@@ -62,8 +62,8 @@ private static void SubmitScoreToFirestore(string jsonBody)
             clicks = clicks,
             pipes = pipes,
             duration = duration,
-            startTimeTimestamp = sessionStartTimeTimestamp,
-            endTimeTimestamp = sessionEndTimeTimestamp
+            startTimestamp = sessionStartTimeTimestamp,
+            endTimestamp = sessionEndTimeTimestamp
         };
         
         string json = JsonUtility.ToJson(payload);
@@ -86,7 +86,7 @@ private static void SubmitScoreToFirestore(string jsonBody)
         public int clicks;
         public int pipes;
         public int duration;
-        public string startTimeTimestamp;
-        public string endTimeTimestamp;
+        public string startTimestamp;
+        public string endTimestamp;
     }
 }
